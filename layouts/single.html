@@ -1,0 +1,34 @@
+{{ define "main" }}
+<div class="wrapper post">
+  <main class="page-content" aria-label="Content">
+    <article>
+      {{- if .Params.sourceHeading }}
+      <div class="page-content source-led-post">
+        {{ .Content }}
+      </div>
+      {{- with .Date }}
+      {{- $configDateFormat := $.Site.Params.dateFormat | default "2 Jan 2006" }}
+      <footer class="post-meta source-post-meta">
+        Published <time datetime="{{ dateFormat "2006-01-02T15:04:05-07:00" . }}">{{ .Format $configDateFormat }}</time>
+      </footer>
+      {{- end }}
+      {{- else }}
+      <header class="header">
+        <h1 class="header-title">{{ .Title }}</h1>
+        {{- with .Date }}
+        {{- $configDateFormat := $.Site.Params.dateFormat | default "2 Jan 2006" }}
+        <div class="post-meta">
+          <time datetime="{{ dateFormat "2006-01-02T15:04:05-07:00" . }}">{{ .Format $configDateFormat }}</time>
+        </div>
+        {{- end }}
+      </header>
+      {{ partial "toc.html" . }}
+      <div class="page-content">
+        {{ .Content }}
+      </div>
+      {{- end }}
+    </article>
+    {{- partial "comments.html" . -}}
+  </main>
+</div>
+{{ end }}

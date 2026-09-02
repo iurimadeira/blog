@@ -1,0 +1,272 @@
+:root {
+  --brand: #176b4a;
+  --brand-strong: #0f5439;
+  --surface-soft: #f1f5ef;
+  --border-soft: #d7e0d9;
+}
+
+body,
+button,
+input,
+textarea {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.menu .menu-icon {
+  border: 0;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+}
+
+body {
+  background: #fbfcf8;
+  letter-spacing: -0.006em;
+}
+
+.wrapper {
+  max-width: 720px;
+}
+
+.navbar {
+  max-width: 920px;
+}
+
+.author {
+  margin-top: 5.5rem;
+  margin-bottom: 5.5rem;
+}
+
+.author-name,
+.header-title {
+  letter-spacing: -0.035em;
+}
+
+.author-name {
+  font-size: clamp(2.1rem, 7vw, 3.4rem) !important;
+  line-height: 1.05;
+}
+
+.author-bio {
+  max-width: 560px !important;
+  font-size: 1.08rem;
+}
+
+.posts-item-note {
+  color: var(--brand);
+  font-size: .8rem;
+  font-weight: 750;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.post-item {
+  padding: 1rem 0;
+}
+
+.post-item .post-item-title {
+  font-size: 1.05rem;
+  font-weight: 650;
+}
+
+.page-content {
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+.page-content > p {
+  padding-top: .65rem;
+  padding-bottom: .65rem;
+}
+
+.source-led-post > h1:first-child {
+  margin-top: 6.5rem;
+  font-size: clamp(2rem, 6vw, 3rem);
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+}
+
+.source-post-meta {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-soft);
+}
+
+.page-content a,
+.post-item a:hover,
+a:hover {
+  color: var(--brand) !important;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #3fa578;
+  outline-offset: 3px;
+}
+
+.contact-form {
+  display: grid;
+  gap: 1.25rem;
+  margin: 2rem 0;
+  padding: 1.5rem;
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  background: var(--surface-soft);
+}
+
+.form-field {
+  display: grid;
+  gap: .4rem;
+}
+
+.form-field label {
+  color: #17251d;
+  font-weight: 700;
+}
+
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  border: 1px solid #a9b8ae;
+  border-radius: 8px;
+  padding: .75rem .85rem;
+  color: #17251d;
+  background: #fff;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.form-field textarea {
+  resize: vertical;
+}
+
+.contact-form button {
+  width: fit-content;
+  min-height: 44px;
+  border: 0;
+  border-radius: 999px;
+  padding: .7rem 1.15rem;
+  color: #fff;
+  background: var(--brand);
+  font-size: 1rem;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.contact-form button:hover {
+  background: var(--brand-strong);
+}
+
+.contact-form button:disabled {
+  cursor: not-allowed;
+  opacity: .58;
+}
+
+.form-privacy,
+.form-note {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: .9rem;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: .75rem;
+  font-size: .85rem;
+}
+
+.footer-links a {
+  color: inherit;
+}
+
+@media (prefers-color-scheme: dark) {
+  body[data-theme="auto"] {
+    --brand: #77d8aa;
+    --brand-strong: #98e6c0;
+    --surface-soft: #1a2420;
+    --border-soft: #34443b;
+  }
+
+  body[data-theme="auto"] .contact-form {
+    background: var(--surface-soft);
+    border-color: var(--border-soft);
+  }
+
+  body[data-theme="auto"] .form-field label {
+    color: #eef6f1;
+  }
+}
+
+body[data-theme="dark"] {
+  --brand: #77d8aa;
+  --brand-strong: #98e6c0;
+  --surface-soft: #1a2420;
+  --border-soft: #34443b;
+}
+
+html.dark body {
+  --brand: #77d8aa;
+  --brand-strong: #98e6c0;
+  --surface-soft: #1a2420;
+  --border-soft: #34443b;
+}
+
+body[data-theme="dark"] .contact-form {
+  background: var(--surface-soft);
+  border-color: var(--border-soft);
+}
+
+body[data-theme="dark"] .form-field label {
+  color: #eef6f1;
+}
+
+html.dark body .contact-form {
+  background: var(--surface-soft);
+  border-color: var(--border-soft);
+}
+
+html.dark body .form-field label {
+  color: #eef6f1;
+}
+
+@media (max-width: 768px) {
+  .author {
+    margin-top: 6rem;
+  }
+
+  .contact-form {
+    padding: 1rem;
+  }
+
+  .menu .menu-icon {
+    z-index: 4;
+  }
+
+  .menu input[type="checkbox"]:checked ~ .trigger {
+    z-index: 3;
+    background: #fbfcf8;
+  }
+
+  html.dark .menu input[type="checkbox"]:checked ~ .trigger {
+    background: #131418;
+  }
+
+  .menu input[type="checkbox"]:checked ~ .trigger #mode {
+    margin-top: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

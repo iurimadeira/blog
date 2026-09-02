@@ -1,0 +1,37 @@
+{{- $accessKey := getenv "HUGO_WEB3FORMS_ACCESS_KEY" -}}
+<form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+  <input type="hidden" name="access_key" value="{{ $accessKey }}">
+  <input type="hidden" name="subject" value="New message from iurimadeira.com">
+  <input type="hidden" name="from_name" value="iurimadeira.com">
+  <input type="hidden" name="redirect" value="{{ "thank-you/" | absURL }}">
+
+  <div class="form-field">
+    <label for="contact-name">Name</label>
+    <input id="contact-name" name="name" type="text" autocomplete="name" maxlength="100" required>
+  </div>
+
+  <div class="form-field">
+    <label for="contact-email">Email</label>
+    <input id="contact-email" name="email" type="email" autocomplete="email" maxlength="254" required>
+  </div>
+
+  <div class="form-field">
+    <label for="contact-message">Message</label>
+    <textarea id="contact-message" name="message" rows="7" maxlength="5000" required></textarea>
+  </div>
+
+  {{- with $accessKey }}
+  <div class="h-captcha" data-captcha="true"></div>
+  {{- end }}
+
+  <p class="form-privacy">By submitting, you agree to the processing described in the <a href="{{ "privacy/" | relURL }}">Privacy page</a>.</p>
+  <button type="submit"{{ if not $accessKey }} disabled aria-describedby="form-preview-note"{{ end }}>Send message</button>
+
+  {{- if not $accessKey }}
+  <p id="form-preview-note" class="form-note" role="status">Form delivery is disabled in this preview. Please use <a href="mailto:iurimadeira@gmail.com">email</a>.</p>
+  {{- end }}
+</form>
+{{- with $accessKey }}
+<script src="https://web3forms.com/client/script.js" async defer></script>
+{{- end }}
+

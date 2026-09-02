@@ -1,0 +1,8 @@
+{
+  "name": "iurimadeira-blog",
+  "private": true,
+  "scripts": {
+    "test": "node --test test/site.test.mjs"
+  }
+}
+
