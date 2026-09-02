@@ -80,7 +80,7 @@ test("the first post preserves the approved article", () => {
 
   assert.equal(
     bodyHash,
-    "37e26bd7ef1084fd8469d1d5f4819c560fda7b2e724dc1c3153c9bf3b251a3c1",
+    "3f557f546e0cb554fb10e0e48b8af3e4d450ba3b861339da173b05611981b65a",
   );
 
   const destination = buildSite();
@@ -105,7 +105,8 @@ test("the first post preserves the approved article", () => {
     assert.doesNotMatch(article, /A market intelligence product might use persistent code/);
     assert.doesNotMatch(article, /AI Agents Can Blaze Trails\. But Scale Still Needs Roads\./);
     assert.doesNotMatch(body, /—/);
-    assert.match(article, /What Disposable Code Actually Means/);
+    assert.match(article, /Scouts and Roads/);
+    assert.match(article, /A Matter of Variation and Scale/);
     assert.match(article, /https:\/\/arxiv\.org\/abs\/2606\.05608v2/);
   } finally {
     rmSync(destination, { recursive: true, force: true });
