@@ -1,0 +1,84 @@
+title = "Iuri Madeira"
+baseURL = "https://iurimadeira.com/"
+locale = "en-us"
+defaultContentLanguage = "en"
+enableEmoji = true
+enableRobotsTXT = true
+
+[module]
+  [module.hugoVersion]
+    extended = true
+    min = "0.160.0"
+  [[module.imports]]
+    path = "github.com/hugo-sid/hugo-blog-awesome/v2"
+    disable = false
+
+[markup]
+  [markup.highlight]
+    noClasses = false
+  [markup.goldmark.renderer]
+    unsafe = true
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
+    ordered = false
+
+[security]
+  [security.funcs]
+    getenv = ["^HUGO_", "^CI$"]
+
+[menu]
+  [[menu.main]]
+    pageRef = "/"
+    name = "Home"
+    weight = 10
+  [[menu.main]]
+    pageRef = "/posts"
+    name = "Posts"
+    weight = 20
+  [[menu.main]]
+    pageRef = "/about"
+    name = "About"
+    weight = 30
+  [[menu.main]]
+    pageRef = "/contact"
+    name = "Contact"
+    weight = 40
+
+[params]
+  sitename = "Iuri Madeira"
+  description = "Notes on software engineering, Elixir, distributed systems, and AI agents."
+  defaultColor = "auto"
+  mainSections = ["posts"]
+  toc = true
+  tocOpen = false
+  goToTop = true
+  dateFormat = "January 2, 2006"
+  rssFeedDescription = "summary"
+  additionalScripts = ["js/custom.js"]
+
+  [params.author]
+    intro = "Iuri Madeira"
+    name = "Iuri Madeira"
+    description = "Software engineer writing about Elixir, backend systems, distributed systems, and AI-assisted software development."
+
+  [params.webmanifest]
+    name = "Iuri Madeira"
+    short_name = "Iuri Madeira"
+    start_url = "/"
+    theme_color = "#176b4a"
+    background_color = "#fbfcf8"
+    display = "standalone"
+
+  [[params.socialIcons]]
+    name = "email"
+    title = "Email Iuri Madeira"
+    url = "mailto:iurimadeira@gmail.com"
+  [[params.socialIcons]]
+    name = "github"
+    title = "Iuri Madeira on GitHub"
+    url = "https://github.com/iurimadeira"
+  [[params.socialIcons]]
+    name = "linkedin"
+    title = "Iuri Madeira on LinkedIn"
+    url = "https://www.linkedin.com/in/iurimadeira"

@@ -1,0 +1,29 @@
+<div class="navbar" role="navigation">
+  <nav class="menu" aria-label="Main navigation">
+    <a href="{{ .Site.Home.Permalink }}" class="logo" aria-label="Home">
+      {{ partial "svgs/home.svg" (dict "height" 25 "width" 25) . }}
+    </a>
+    <input type="checkbox" id="menu-trigger" class="menu-trigger" aria-controls="main-menu">
+    <button type="button" id="menu-button" class="menu-icon" aria-label="Open main menu" aria-expanded="false" aria-controls="main-menu">
+      {{ partial "svgs/menu.svg" (dict "height" 25 "width" 25) . }}
+    </button>
+
+    <div class="trigger" id="main-menu">
+      <ul class="trigger-container">
+        {{- $currentPage := . -}}
+        {{- range .Site.Menus.main }}
+        <li>
+          <a class="menu-link {{ if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}active{{ end }}" href="{{ .URL }}">
+            {{ .Name }}
+          </a>
+        </li>
+        {{- end }}
+        <li class="menu-separator" aria-hidden="true"><span>|</span></li>
+      </ul>
+      <a id="mode" aria-label="Toggle color theme" role="button" href="#">
+        {{ partial "svgs/sun.svg" (dict "height" 21 "width" 21 "class" "mode-sunny" "title" "Light theme") . }}
+        {{ partial "svgs/sun.svg" (dict "height" 21 "width" 21 "class" "mode-moon" "title" "Dark theme") . }}
+      </a>
+    </div>
+  </nav>
+</div>
