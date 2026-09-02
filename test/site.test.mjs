@@ -105,8 +105,11 @@ test("the first post preserves the approved article", () => {
     assert.doesNotMatch(article, /A market intelligence product might use persistent code/);
     assert.doesNotMatch(article, /AI Agents Can Blaze Trails\. But Scale Still Needs Roads\./);
     assert.doesNotMatch(body, /—/);
-    assert.match(article, /Scouts and Roads/);
-    assert.match(article, /A Matter of Variation and Scale/);
+    assert.match(article, /<h2 id="scouts-and-roads">Scouts and Roads<\/h2>/);
+    assert.match(
+      article,
+      /<h2 id="a-matter-of-variation-and-scale">A Matter of Variation and Scale<\/h2>/,
+    );
     assert.match(article, /https:\/\/arxiv\.org\/abs\/2606\.05608v2/);
   } finally {
     rmSync(destination, { recursive: true, force: true });
