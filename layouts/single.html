@@ -4,6 +4,10 @@
     <article>
       {{- if .Params.sourceHeading }}
       <div class="page-content source-led-post">
+        <header class="source-post-header">
+          <span class="reading-time">{{ .ReadingTime }} min read</span>
+          <h1 class="header-title">{{ .Title }}</h1>
+        </header>
         {{ .Content }}
       </div>
       {{- with .Date }}

@@ -60,7 +60,7 @@ enableRobotsTXT = true
   [params.author]
     intro = "Iuri Madeira"
     name = "Iuri Madeira"
-    description = "Software engineer writing about Elixir, backend systems, distributed systems, and AI-assisted software development."
+    description = "Software engineer. Writing questionable takes on Elixir, distributed systems, AI, and whatever else comes to mind."
 
   [params.webmanifest]
     name = "Iuri Madeira"
