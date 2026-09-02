@@ -1,5 +1,5 @@
 ---
-title: AI Agents Can Blaze Trails. But Scale Still Needs Roads.
+title: Agents Blaze Trails. Scale Needs Roads.
 date: 2026-09-02T09:00:00-03:00
 description: Disposable agent-generated code excels at exploration, while persistent software still wins when stable work must scale.
 slug: ai-agents-can-blaze-trails
@@ -9,11 +9,19 @@ tags:
   - architecture
 sourceHeading: true
 ---
-# AI Agents Can Blaze Trails. But Scale Still Needs Roads.
-
 A paper recently went viral under a provocative title: [*The End of Software Engineering*](https://arxiv.org/abs/2606.05608v1). Six days later, a second version appeared with a calmer name: [*Agentic Software: How AI Agents Are Restructuring the Software Paradigm*](https://arxiv.org/abs/2606.05608v2).
 
-To the author’s credit, the change was more than cosmetic. The revised paper no longer says software engineering is simply ending. Instead, it describes an expansion into what it calls *Agentic Engineering*. Its central idea remains: agents can generate code at runtime, use it to complete a task, and discard it afterward. Code no longer needs to be the product. Sometimes it is only a temporary tool used to produce a result.
+To the author’s credit, the change was more than cosmetic. The revised paper no longer says software engineering is simply ending. Instead, it describes an expansion into what it calls *Agentic Engineering*.
+
+<div class="paradigm-shift" role="img" aria-label="AI to Software to Result versus Agent to Result">
+  <strong>AI → Software → Result</strong>
+  <span>vs.</span>
+  <strong>Agent → Result</strong>
+</div>
+
+In the first path, AI helps people create a persistent software artifact, and that artifact produces the outcome. In the second, the agent plans and executes the work directly, generating and discarding code whenever useful. Software does not disappear. It becomes part of the agent’s runtime, a means to the result rather than the product handed to the user.
+
+The paper extends this into a shift from SaaS to Agent-as-a-Service. I agree that agent-delivered outcomes will grow, but not that they make SaaS obsolete. SaaS is still how we package many of the persistent roads that repeated work depends on, and agents can operate inside those products as well as alongside them.
 
 I think this will become extremely common. But I do not see agentic software as the next stage replacing persistent software. I see two different ways of solving different kinds of problems. One is exploration. The other is infrastructure.
 
@@ -29,7 +37,7 @@ The code still matters. It performs the calculations and produces the result. Bu
 
 Now imagine that hundreds of people request the same market analysis every few seconds. The inputs may differ slightly, but the sources, calculations, and expected output follow mostly stable rules. Every number needs to be reproducible because people are comparing results and making pricing or inventory decisions from them.
 
-The result has not changed. It is still a market analysis. What changed is how many times—and how quickly—we need to produce it.
+The result has not changed. It is still a market analysis. What changed is how many times, and how quickly, we need to produce it.
 
 Asking an agent to rediscover the process for every request would waste time, spend tokens, consume more resources, and introduce unnecessary variation. An agent needs to reason again on every execution. That flexibility is useful when the problem changes, but it becomes overhead when the path remains mostly the same.
 
@@ -37,7 +45,7 @@ Persistent software can optimize that repeated path. It can precompute shared re
 
 Persistent code costs more to design, test, deploy, and maintain. But once it exists, it can execute millions of times at very low marginal cost. Its optimizations, tests, bug fixes, and operational knowledge are reused by every user and every execution. Disposable code pays part of the exploration and validation cost again each time. Persistent code establishes the path once and amortizes that work over time.
 
-When low variation meets high repetition, persistent software starts to win—not because an agent cannot solve the problem, but because the problem no longer needs to be solved from scratch.
+When low variation meets high repetition, persistent software starts to win. Not because an agent cannot solve the problem, but because the problem no longer needs to be solved from scratch.
 
 ## Explorers and Roads
 
@@ -52,10 +60,6 @@ Persistent code works the same way. It accumulates tests, optimizations, monitor
 We build roads not because exploring is impossible, but because repeatedly exploring the same path is wasteful.
 
 ## Different Tools for Different Terrain
-
-The explorer and the road are not competing technologies. Explorers use roads wherever roads already exist. They improvise only where existing infrastructure no longer reaches.
-
-Agents work the same way. They already depend on persistent software: models, runtimes, APIs, databases, sandboxes, tools, and protocols. A market intelligence product might use persistent code to collect and normalize data continuously, serving thousands of similar requests efficiently. An agent could then use that infrastructure to answer unusual questions the application never anticipated.
 
 Stable work becomes a road. Novel work remains exploration. If an unusual question starts appearing repeatedly, its stable parts can become another permanent feature. A useful trail becomes a new road, which agents can then use during future journeys.
 

@@ -9,21 +9,25 @@ import test from "node:test";
 const projectRoot = new URL("..", import.meta.url).pathname;
 const hugoBin = process.env.HUGO_BIN ?? "hugo";
 
-function buildSite(env = {}) {
+function buildSite(env = {}, baseURL = "https://example.invalid/") {
   const destination = mkdtempSync(join(tmpdir(), "blog-v1-site-"));
+
+  const args = [
+    "--source",
+    projectRoot,
+    "--destination",
+    destination,
+    "--cleanDestinationDir",
+    "--panicOnWarning",
+  ];
+
+  if (baseURL) {
+    args.push("--baseURL", baseURL);
+  }
 
   execFileSync(
     hugoBin,
-    [
-      "--source",
-      projectRoot,
-      "--destination",
-      destination,
-      "--cleanDestinationDir",
-      "--panicOnWarning",
-      "--baseURL",
-      "https://example.invalid/",
-    ],
+    args,
     { env: { ...process.env, ...env }, stdio: "pipe" },
   );
 
@@ -53,12 +57,19 @@ test("the public site builds every approved route", () => {
     const home = readFileSync(join(destination, "index.html"), "utf8");
     assert.match(home, /<html[^>]+lang="en-us"/);
     assert.match(home, /Iuri Madeira/);
+    assert.match(home, /class="logo" aria-label="Iuri Madeira home"/);
+    assert.doesNotMatch(home, /class="site-title"/);
+    assert.match(
+      home,
+      /Software engineer\. Writing questionable takes on Elixir, distributed systems, AI, and whatever else comes to mind\./,
+    );
+    assert.doesNotMatch(home, /AI-assisted software development/);
   } finally {
     rmSync(destination, { recursive: true, force: true });
   }
 });
 
-test("the first post preserves the supplied article exactly", () => {
+test("the first post preserves the approved article", () => {
   const source = readFileSync(
     join(projectRoot, "content/posts/ai-agents-can-blaze-trails.md"),
     "utf8",
@@ -69,7 +80,7 @@ test("the first post preserves the supplied article exactly", () => {
 
   assert.equal(
     bodyHash,
-    "155cd5668d1d93361a4947816e8ab327aa3c93524511d85bcd9a5080d0fcf69e",
+    "37e26bd7ef1084fd8469d1d5f4819c560fda7b2e724dc1c3153c9bf3b251a3c1",
   );
 
   const destination = buildSite();
@@ -80,6 +91,20 @@ test("the first post preserves the supplied article exactly", () => {
       "utf8",
     );
     assert.equal((article.match(/<h1[ >]/g) ?? []).length, 1);
+    assert.match(
+      article,
+      /<span class="reading-time">\d+ min read<\/span>[\s\S]*<h1 class="header-title">Agents Blaze Trails\. Scale Needs Roads\.<\/h1>/,
+    );
+    assert.match(article, /Agents Blaze Trails\. Scale Needs Roads\./);
+    assert.match(
+      article,
+      /class="paradigm-shift"[\s\S]*<strong>AI → Software → Result<\/strong>[\s\S]*<span>vs\.<\/span>[\s\S]*<strong>Agent → Result<\/strong>/,
+    );
+    assert.match(article, /shift from SaaS to Agent-as-a-Service/);
+    assert.doesNotMatch(article, /The explorer and the road are not competing technologies/);
+    assert.doesNotMatch(article, /A market intelligence product might use persistent code/);
+    assert.doesNotMatch(article, /AI Agents Can Blaze Trails\. But Scale Still Needs Roads\./);
+    assert.doesNotMatch(body, /—/);
     assert.match(article, /What Disposable Code Actually Means/);
     assert.match(article, /https:\/\/arxiv\.org\/abs\/2606\.05608v2/);
   } finally {
@@ -134,6 +159,46 @@ test("contact has a safe preview state and a production delivery state", () => {
   } finally {
     rmSync(liveDestination, { recursive: true, force: true });
   }
+
+  const customStyles = readFileSync(
+    join(projectRoot, "assets/sass/_custom.scss"),
+    "utf8",
+  );
+  assert.match(
+    customStyles,
+    /\.form-field input,\s*\.form-field textarea \{[^}]*box-sizing: border-box;/s,
+  );
+  assert.match(
+    customStyles,
+    /\.paradigm-shift \{[^}]*display: grid;[^}]*text-align: center;/s,
+  );
+});
+
+test("production SEO uses HTTPS and keeps the confirmation page out of search", () => {
+  const destination = buildSite({}, null);
+
+  try {
+    const home = readFileSync(join(destination, "index.html"), "utf8");
+    const article = readFileSync(
+      join(destination, "posts/ai-agents-can-blaze-trails/index.html"),
+      "utf8",
+    );
+    const thankYou = readFileSync(join(destination, "thank-you/index.html"), "utf8");
+    const sitemap = readFileSync(join(destination, "sitemap.xml"), "utf8");
+    const feed = readFileSync(join(destination, "index.xml"), "utf8");
+
+    assert.match(home, /<link rel="canonical" href="https:\/\/iurimadeira\.com\/"/);
+    assert.match(
+      article,
+      /"mainEntityOfPage":\s*"https:\/\/iurimadeira\.com\/posts\/ai-agents-can-blaze-trails\/"/,
+    );
+    assert.match(thankYou, /<meta name="robots" content="noindex">/);
+    assert.doesNotMatch(sitemap, /\/thank-you\//);
+    assert.doesNotMatch(sitemap, /http:\/\/iurimadeira\.com/);
+    assert.doesNotMatch(feed, /http:\/\/iurimadeira\.com/);
+  } finally {
+    rmSync(destination, { recursive: true, force: true });
+  }
 });
 
 test("global navigation exposes an accessible color-mode control", () => {
@@ -165,4 +230,5 @@ test("Pages deployment is pinned and remains manually gated", () => {
   assert.match(workflow, /actions\/deploy-pages@v5/);
   assert.match(workflow, /pages: write/);
   assert.match(workflow, /id-token: write/);
+  assert.doesNotMatch(workflow, /--baseURL/);
 });
